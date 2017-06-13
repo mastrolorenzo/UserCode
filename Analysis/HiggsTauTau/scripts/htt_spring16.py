@@ -122,7 +122,9 @@ if analysis == 'sm':
 else:
   CONFIG='scripts/config2016.json'
   
-FILELIST='filelists/Aug11_MC_80X'
+#FILELIST='filelists/Aug11_MC_80X'
+#Modif Luca-below
+FILELIST='filelists/Feb01_MC_80X'
 
 signal_mc = [ ]
 signal_vh = [ ] 
@@ -232,12 +234,15 @@ if options.proc_data or options.proc_all or options.calc_lumi:
          'Tau'+era]
 
 
-  DATAFILELIST="./filelists/Aug11_Data_80X"
+#  DATAFILELIST="./filelists/Aug11_Data_80X"
+  DATAFILELIST="./filelists/Feb01_Data_80X"
 
   if options.calc_lumi:
     for sa in data_samples:
         JOB='%s_2016' % (sa)
-        JSONPATCH= (r"'{\"job\":{\"filelist\":\"%(DATAFILELIST)s_%(sa)s.dat\",\"file_prefix\":\"root://gfe02.grid.hep.ph.ic.ac.uk:1097//store/user/rlane/Aug11_Data_80X/\",\"sequences\":{\"em\":[],\"et\":[],\"mt\":[],\"tt\":[]}}, \"sequence\":{\"output_name\":\"%(JOB)s\",\"is_data\":true,\"lumi_mask_only\":true}}' "%vars());
+        #JSONPATCH= (r"'{\"job\":{\"filelist\":\"%(DATAFILELIST)s_%(sa)s.dat\",\"file_prefix\":\"root://gfe02.grid.hep.ph.ic.ac.uk:1097//store/user/rlane/Aug11_Data_80X/\",\"sequences\":{\"em\":[],\"et\":[],\"mt\":[],\"tt\":[]}}, \"sequence\":{\"output_name\":\"%(JOB)s\",\"is_data\":true,\"lumi_mask_only\":true}}' "%vars());
+        #Luca modif below
+        JSONPATCH= (r"'{\"job\":{\"filelist\":\"%(DATAFILELIST)s_%(sa)s.dat\",\"file_prefix\":\"root://gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/adewit/Feb01_Data_80X/\",\"sequences\":{\"em\":[],\"et\":[],\"mt\":[],\"tt\":[]}}, \"sequence\":{\"output_name\":\"%(JOB)s\",\"is_data\":true,\"lumi_mask_only\":true}}' "%vars());
         nfiles = sum(1 for line in open('%(DATAFILELIST)s_%(sa)s.dat' % vars()))
         nperjob = 500 
         for i in range (0,int(math.ceil(float(nfiles)/float(nperjob)))) :
@@ -248,12 +253,16 @@ if options.proc_data or options.proc_all or options.calc_lumi:
   else:
     for sa in data_samples:
         JOB='%s_2016' % (sa)
-        JSONPATCH= (r"'{\"job\":{\"filelist\":\"%(DATAFILELIST)s_%(sa)s.dat\",\"file_prefix\":\"root://gfe02.grid.hep.ph.ic.ac.uk:1097//store/user/rlane/Aug11_Data_80X/\",\"sequences\":{\"em\":[],\"et\":[],\"mt\":[],\"tt\":[]}}, \"sequence\":{\"output_name\":\"%(JOB)s\",\"is_data\":true}}' "%vars());
+        #JSONPATCH= (r"'{\"job\":{\"filelist\":\"%(DATAFILELIST)s_%(sa)s.dat\",\"file_prefix\":\"root://gfe02.grid.hep.ph.ic.ac.uk:1097//store/user/rlane/Aug11_Data_80X/\",\"sequences\":{\"em\":[],\"et\":[],\"mt\":[],\"tt\":[]}}, \"sequence\":{\"output_name\":\"%(JOB)s\",\"is_data\":true}}' "%vars());
+        #Luca modif below
+        JSONPATCH= (r"'{\"job\":{\"filelist\":\"%(DATAFILELIST)s_%(sa)s.dat\",\"file_prefix\":\"root://gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/adewit/Feb01_Data_80X/\",\"sequences\":{\"em\":[],\"et\":[],\"mt\":[],\"tt\":[]}}, \"sequence\":{\"output_name\":\"%(JOB)s\",\"is_data\":true}}' "%vars());
         nfiles = sum(1 for line in open('%(DATAFILELIST)s_%(sa)s.dat' % vars()))
         nperjob = 40
         #Temporary because i was an idiot and named the dcache folder differently for the fixed version of the emu data samples
         if 'MuonEGB' in sa or 'MuonEGC' in sa or 'MuonEGD' in sa: 
-            JSONPATCH= (r"'{\"job\":{\"filelist\":\"%(DATAFILELIST)s_%(sa)s.dat\",\"file_prefix\":\"root://gfe02.grid.hep.ph.ic.ac.uk:1097//store/user/rlane/Aug11_Data_80X_v2/\",\"sequences\":{\"em\":[],\"et\":[],\"mt\":[],\"tt\":[]}}, \"sequence\":{\"output_name\":\"%(JOB)s\",\"is_data\":true}}' "%vars());
+          #JSONPATCH= (r"'{\"job\":{\"filelist\":\"%(DATAFILELIST)s_%(sa)s.dat\",\"file_prefix\":\"root://gfe02.grid.hep.ph.ic.ac.uk:1097//store/user/rlane/Aug11_Data_80X_v2/\",\"sequences\":{\"em\":[],\"et\":[],\"mt\":[],\"tt\":[]}}, \"sequence\":{\"output_name\":\"%(JOB)s\",\"is_data\":true}}' "%vars());
+          #Luca Modif below   
+          JSONPATCH= (r"'{\"job\":{\"filelist\":\"%(DATAFILELIST)s_%(sa)s.dat\",\"file_prefix\":\"root://gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/adewit/Feb01_Data_80X/\",\"sequences\":{\"em\":[],\"et\":[],\"mt\":[],\"tt\":[]}}, \"sequence\":{\"output_name\":\"%(JOB)s\",\"is_data\":true}}' "%vars());
         for i in range (0,int(math.ceil(float(nfiles)/float(nperjob)))) :
           os.system('%(JOBWRAPPER)s "./bin/HTT --cfg=%(CONFIG)s --json=%(JSONPATCH)s --offset=%(i)d --nlines=%(nperjob)d &> jobs/%(JOB)s-%(i)d.log" jobs/%(JOB)s-%(i)s.sh' %vars())
           os.system('%(JOBSUBMIT)s jobs/%(JOB)s-%(i)d.sh' % vars())
@@ -291,7 +300,7 @@ if options.proc_bkg or options.proc_all or options.qcd_study:
     'ZZTo2L2Q',
     'ZZTo4L',
     'WWTo1L1Nu2Q',
-    'WZJToLLLNu',
+    #Luca modif 'WZJToLLLNu',
     'WZTo1L3Nu',
     'WZTo2L2Q',
     'WZTo1L1Nu2Q',
@@ -311,14 +320,17 @@ if options.proc_bkg or options.proc_all or options.qcd_study:
     'W2JetsToLNu-LO',
     'W3JetsToLNu-LO',
     'W4JetsToLNu-LO',
-    'WGToLNuG',
-    'WGstarToLNuEE',
-    'WGstarToLNuMuMu'
+    #Luca modif 'WGToLNuG',
+    #Luca modif 'WGstarToLNuEE',
+    #Luca modif 'WGstarToLNuMuMu'
      ]
 
   if options.qcd_study:
     #FILELIST='filelists/Feb25_MC_76X'
-    FILELIST='filelists/Aug11_MC_80X'
+    #FILELIST='filelists/Aug11_MC_80X'
+    #Modif-Luca below
+    FILELIST='filelists/Feb01_MC_80X'
+
     central_samples = [
       'QCDMuEnrichedPt15'
   #    'QCDEMEnrichedPt15-20',

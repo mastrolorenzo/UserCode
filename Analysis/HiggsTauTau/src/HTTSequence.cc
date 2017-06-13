@@ -1013,7 +1013,11 @@ if(do_met_filters){
        std::vector<std::string> met_filters = {"Flag_HBHENoiseFilter","Flag_HBHENoiseIsoFilter","Flag_EcalDeadCellTriggerPrimitiveFilter","Flag_goodVertices", "badChargedHadronFilter","badMuonFilter", "Flag_globalTightHalo2016Filter"};
        bool pass_filters = true;
        for(unsigned i=0;i<met_filters.size();++i){
-        pass_filters = pass_filters&& eventInfo->filter_result(met_filters.at(i));
+        pass_filters = pass_filters && eventInfo->filter_result(met_filters.at(i));
+//        std::cout << "met filter at i"<< i << " ,  " << met_filters.at(i) << "  value: "<< eventInfo->filter_result(met_filters.at(i)) << std::endl;            
+//        if(i==5){
+//            pass_filters =  pass_filters && !eventInfo->filter_result(met_filters.at(i)) ;
+//        }
        }
        return !pass_filters;
     }));
@@ -1023,11 +1027,20 @@ BuildModule(GenericModule("BadMuonFilters")
   .set_function([=](ic::TreeEvent *event){
      EventInfo *eventInfo = event->GetPtr<EventInfo>("eventInfo");
      std::vector<std::string> bad_muon_filters = {"Flag_badMuons","Flag_duplicateMuons"};
-     bool pass_filters = true;
+//     bool pass_filters = true;
+     bool pass_filters = false;
+
      for(unsigned i=0;i<bad_muon_filters.size();++i){
-      pass_filters = pass_filters&& eventInfo->filter_result(bad_muon_filters.at(i));
+         //pass_filters = pass_filters&& eventInfo->filter_result(bad_muon_filters.at(i));
+         //std::cout << "pass_filters "<< pass_filters << "  eventInfo->filter_result(bad_muon_filters.at(i)) " << eventInfo->filter_result(bad_muon_filters.at(i)) << std::endl;
+         std::cout << "Flagh ==> badmuon at i"<< i << " ,  " << bad_muon_filters.at(i) << "  value: "<< eventInfo->filter_result(bad_muon_filters.at(i)) << std::endl;            
+         pass_filters =  pass_filters || eventInfo->filter_result(bad_muon_filters.at(i)) ;
      }
-     return !pass_filters;
+     
+     std::cout << "TOT-filter logic value = "<< pass_filters << std::endl; 
+//     return !pass_filters;
+     return pass_filters;
+
   }));
 
 

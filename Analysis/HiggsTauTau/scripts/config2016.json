@@ -1,7 +1,12 @@
 {
   "job": {
     "filelist" : "filelists/Apr05_MC_80X_DYJetsToLL-LO-ext1.dat",
-    "file_prefix" : "root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/user/dwinterb/Apr05_MC_80X/",
+//    "filelist" : "filelists/Feb01_*_80X_SUSYGluGluToHToTauTau_M-3200.dat",
+//    "file_prefix" : "root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/user/dwinterb/Apr05_MC_80X/",
+    "file_prefix" : "root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/lmastrol/MSSM_Htt/Jun17_MC_80X_test/",
+//    "file_prefix" : "root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/lmastrol/MSSM_Htt/Jun17_Data_80X_test/",
+//    "file_prefix" : "root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/lmastrol/MSSM_Htt/May31_MC_80X_test2/",
+//    "file prefix" : "root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/lmastrol/MSSM_Htt/May31_MC_80X_test2/",
     "max_events":   -1,
     "timings":      true,
     "channels":     [ "et","mt","tt" ],
@@ -29,7 +34,7 @@
     "qcd_study" : false,
     "tau_id_study":true,
     "add_Hhh_variables" : false,
-    "get_effective" : false,
+    "get_effective" : true,
     "do_btag_eff":false,
     "trg_in_mc" : true,
     "filter_trg" : false,
@@ -54,11 +59,12 @@
     "do_ff_weights" : false,
     "do_ff_systematics": false,
     "ff_categories" :"inclusive,btag,nobtag",
-    "output_folder" : "/vols/cms/dw515/Offline/output/MSSM/May11/",
-    //"output_folder" :/output/July27_NewGolden/",
-    "output_name"   : "SUSYGluGluToHToTauTau_M-3200",
+    "output_folder" : "/vols/cms/lmastrol/htt_Jun17/testNewProd/deepb/",    
+    //"output_folder" : "/vols/cms/dw515/Offline/output/MSSM/May11/",
+    //"output_folder" : /output/July27_NewGolden/",
+    "output_name"   : "SUSYGluGluToHToTauTau_M-3200",    
     //"output_name"   : "SUSYGluGluToHToTauTau_M-160",
-//    "output_name"   : "VBF_HToTauTau_M-125",
+    //"output_name"   : "VBF_HToTauTau_M-125",
     "svfit_from_grid" : true,
     "read_all_svfit_files" : true,
     "svfit_folder"  : "svfit-76X-postpreapp-output/",
@@ -121,8 +127,8 @@
         "max_extra_muons": 0,
         "do_tau_anti_muon": true,
         "do_tau_anti_elec":true,
-        "do_ff_weights" : true,
-        "do_ff_systematics": true,
+        "do_ff_weights" : false,
+        "do_ff_systematics": false,
         "ff_categories" :"btag_loosemt,btag_tight,inclusive,nobtag_loosemt,nobtag_tight",
         "ff_file" : "20170515_tight"
           }
@@ -135,8 +141,8 @@
         "extra_muon_veto" : true,
         "do_tau_anti_muon": true,
         "do_tau_anti_elec":true,
-        "do_ff_weights" : true,
-        "do_ff_systematics": true,
+        "do_ff_weights" : false,
+        "do_ff_systematics": false,
         "ff_categories" :"btag,inclusive,nobtag",
         "ff_file" : "20170515_medium"
       }
@@ -152,8 +158,8 @@
         "max_extra_muons": 1,
         "do_tau_anti_muon": true,
         "do_tau_anti_elec":true,
-        "do_ff_weights" : true,
-        "do_ff_systematics": true,
+        "do_ff_weights" : false,
+        "do_ff_systematics": false,
         "ff_categories" :"btag_loosemt,btag_tight,inclusive,nobtag_loosemt,nobtag_tight",
         "ff_file" : "20170515_tight"
       }
